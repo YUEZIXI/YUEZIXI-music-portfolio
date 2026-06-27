@@ -109,6 +109,104 @@
       </div>
     </div>`).join("") || `<p class="empty">暂无排单</p>`;
 
+  /* ---------- 作品播放器：旋转黑胶 + 滚动歌词 + 网易云试听 ---------- */
+  const TRACKS = window.TRACKS || {};
+
+  // LRC → 干净歌词行（去时间轴、去空行）
+  function parseLyrics(lrc) {
+    if (!lrc) return [];
+    return lrc.split("\n")
+      .map(l => l.replace(/\[[0-9:.]+\]/g, "").trim())
+      .filter(l => l.length);
+  }
+  function neBarAuto(id) {
+    return `<iframe class="ne-bar" frameborder="no" marginwidth="0" marginheight="0"
+      src="https://music.163.com/outchain/player?type=2&id=${encodeURIComponent(id)}&auto=1&height=66"></iframe>`;
+  }
+  function biliFrame(bv) {
+    return `<iframe class="bili-frame" scrolling="no" frameborder="no" framespacing="0" allowfullscreen="true"
+      src="https://player.bilibili.com/player.html?bvid=${encodeURIComponent(bv)}&autoplay=0&high_quality=1"></iframe>`;
+  }
+  function vinylBlock(w) {
+    const t = TRACKS[w.netease] || {};
+    const lines = parseLyrics(t.lrc);
+    const coverStyle = t.cover ? `style="background-image:url('${esc(t.cover)}')"` : "";
+    const lyrics = lines.length
+      ? `<div class="lyrics"><div class="lyrics__inner">${lines.map(l => `<p>${esc(l)}</p>`).join("")}</div></div>`
+      : `<div class="lyrics lyrics--empty">暂无歌词</div>`;
+    return `<div class="vinyl-stage">
+        <div class="vinyl"><span class="vinyl__cover" ${coverStyle}></span><span class="vinyl__hole"></span></div>
+        ${lyrics}
+      </div>
+      <div class="ne-bar-wrap" data-id="${esc(w.netease)}">
+        <button class="ne-play" type="button">▶ 试听 · 网易云</button>
+      </div>`;
+  }
+  function workPlayer(w) {
+    const hasN = !!(w.netease && String(w.netease).trim());
+    const hasB = !!(w.bilibili && String(w.bilibili).trim());
+    if (!hasN && !hasB) {
+      return w.audio
+        ? `<audio controls preload="none" src="${esc(w.audio)}"></audio>`
+        : `<div class="player-pending">🔗 链接待补充</div>`;
+    }
+    const tabs = (hasN && hasB) ? `
+      <div class="player-tabs">
+        <button class="player-tab active" data-src="netease">♪ 网易云</button>
+        <button class="player-tab" data-src="bilibili">▶ B站视频</button>
+      </div>` : "";
+    const body = hasN ? vinylBlock(w) : `<div class="player-frame">${biliFrame(w.bilibili)}</div>`;
+    return `<div class="work-player" data-netease="${esc(w.netease || "")}" data-bilibili="${esc(w.bilibili || "")}" data-cur="${hasN ? "netease" : "bilibili"}">
+      ${tabs}
+      <div class="player-body">${body}</div>
+    </div>`;
+  }
+
+  // 点击「试听」→ 加载网易云播放条（自动播放，用户手势内允许）
+  document.addEventListener("click", (e) => {
+    const play = e.target.closest(".ne-play");
+    if (play) {
+      const wrap = play.closest(".ne-bar-wrap");
+      wrap.innerHTML = neBarAuto(wrap.dataset.id);
+      return;
+    }
+    // 网易云 / B站 切换
+    const tab = e.target.closest(".player-tab");
+    if (!tab) return;
+    const wrap = tab.closest(".work-player");
+    const src = tab.dataset.src;
+    if (!wrap || wrap.dataset.cur === src) return;
+    wrap.dataset.cur = src;
+    wrap.querySelectorAll(".player-tab").forEach(t => t.classList.toggle("active", t === tab));
+    const w = { netease: wrap.dataset.netease, bilibili: wrap.dataset.bilibili };
+    wrap.querySelector(".player-body").innerHTML =
+      src === "netease" ? vinylBlock(w) : `<div class="player-frame">${biliFrame(w.bilibili)}</div>`;
+    startLyricsScroll(wrap);
+  });
+
+  // 歌词缓慢自动滚动（鼠标悬停暂停）
+  function startLyricsScroll(scope) {
+    (scope || document).querySelectorAll(".lyrics").forEach(panel => {
+      if (panel.__scrolling) return;
+      const inner = panel.querySelector(".lyrics__inner");
+      if (!inner) return;
+      panel.__scrolling = true;
+      let pos = 0, paused = false;
+      panel.addEventListener("mouseenter", () => paused = true);
+      panel.addEventListener("mouseleave", () => paused = false);
+      (function step() {
+        if (!document.body.contains(panel)) { panel.__scrolling = false; return; }
+        const max = inner.scrollHeight - panel.clientHeight;
+        if (max > 4 && !paused) {
+          pos += 0.3;
+          if (pos > max + 24) pos = 0;
+          inner.style.transform = `translateY(${-Math.min(pos, max)}px)`;
+        }
+        requestAnimationFrame(step);
+      })();
+    });
+  }
+
   /* ---------- 作品筛选 + 渲染 ---------- */
   const filterState = { role: "全部", genre: "全部" };
 
@@ -138,24 +236,28 @@
 
     $("worksEmpty").hidden = list.length > 0;
     $("worksGrid").innerHTML = list.map(w => {
-      const coverStyle = w.cover ? `style="background-image:url('${esc(w.cover)}')"` : "";
+      const t = TRACKS[w.netease] || {};
+      const banner = w.cover || t.cover || "";
+      const coverStyle = banner ? `style="background-image:url('${esc(banner)}')"` : "";
       const tags = [
         ...(w.roles  || []).map(r => `<span class="mini-tag mini-tag--role">${esc(r)}</span>`),
         ...(w.genres || []).map(g => `<span class="mini-tag">${esc(g)}</span>`),
         ...(w.moods  || []).map(m => `<span class="mini-tag">${esc(m)}</span>`)
       ].join("");
       return `<div class="work-card">
-        <div class="work-card__cover" ${coverStyle}>
+        <div class="work-card__cover${banner ? " work-card__cover--img" : ""}" ${coverStyle}>
           ${w.year ? `<span class="work-card__year">${esc(w.year)}</span>` : ""}
         </div>
         <div class="work-card__body">
           <div class="work-card__title">${esc(w.title)}</div>
           <div class="work-card__tags">${tags}</div>
+          ${w.vocal ? `<div class="work-card__vocal"><span class="vocal-label">演唱</span>${esc(w.vocal)}</div>` : ""}
           ${w.desc ? `<div class="work-card__desc">${esc(w.desc)}</div>` : ""}
-          ${w.audio ? `<audio controls preload="none" src="${esc(w.audio)}"></audio>` : ""}
+          ${workPlayer(w)}
         </div>
       </div>`;
     }).join("");
+    startLyricsScroll();
   }
   renderWorks();
 })();

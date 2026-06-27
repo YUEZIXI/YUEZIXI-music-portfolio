@@ -32,32 +32,59 @@ window.SITE_DATA = {
 
   /* ---------- 2. 分类标签体系（作品筛选用） ---------- */
   taxonomy: {
-    roles:  ["作曲", "作词", "编曲", "策划", "和声编写", "虚拟歌姬调音"],
-    genres: ["古风 / 国风", "流行", "二次元", "氛围", "电子", "R&B", "民谣"],
-    moods:  ["治愈", "空灵", "悲伤", "燃 / 热血", "黑暗", "甜"]
+    roles:  ["作曲", "作词", "策划"],
+    genres: ["古风 / 国风"],
+    moods:  []
   },
 
   /* ---------- 3. 作品集 ---------- */
+  // 播放：填了 netease(歌曲ID) / bilibili(BV号) 就会出现对应播放器；
+  // 两个都填 → 默认网易云 + 可一键切到 B站视频。链接留空 = 显示「链接待补充」。
   works: [
     {
-      title: "示例作品 · 月下谣",
-      audio: "assets/audio/demo1.mp3",
-      cover: "",
-      roles: ["作曲", "编曲"],
+      title: "再越千山",
+      roles: ["策划", "作曲"],
       genres: ["古风 / 国风"],
-      moods: ["空灵"],
-      year: 2026,
-      desc: "古风原创，乐器旋律 + 虚拟歌姬 demo。"
+      netease: "3376680349",
+      bilibili: "",            // ← B站视频 BV 号填这里，填了会出现「网易云/B站」切换
+      vocal: "裂天、小坠、小曲儿、少年霜",
+      desc: "五四青年节原创曲。"
     },
     {
-      title: "示例作品 · 紫陌行",
-      audio: "assets/audio/demo2.mp3",
-      cover: "",
-      roles: ["作曲", "和声编写"],
-      genres: ["古风 / 国风", "流行"],
-      moods: ["治愈"],
-      year: 2025,
-      desc: "多声部编曲，含和声编写。"
+      title: "于山",
+      roles: ["作曲"],
+      genres: ["古风 / 国风"],
+      netease: "2723680037",
+      bilibili: "",
+      vocal: "兰音Reine",
+      desc: ""
+    },
+    {
+      title: "非我",
+      roles: ["策划", "作曲"],
+      genres: ["古风 / 国风"],
+      netease: "3315967708",
+      bilibili: "",
+      vocal: "南偿、解忧草",
+      desc: ""
+    },
+    {
+      title: "别去沧海再识君",
+      roles: ["作曲"],
+      genres: ["古风 / 国风"],
+      netease: "3331143354",
+      bilibili: "",
+      vocal: "诺言Jason、流浪的蛙蛙、刷牙、Braska",
+      desc: "记秦汉四将军。"
+    },
+    {
+      title: "远山衔落日",
+      roles: ["策划", "作词", "作曲"],
+      genres: ["古风 / 国风"],
+      netease: "2714946039",
+      bilibili: "",
+      vocal: "南风ZJN、南偿",
+      desc: ""
     }
   ],
 

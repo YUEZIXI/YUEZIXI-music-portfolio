@@ -197,6 +197,68 @@ a { color: inherit; text-decoration: none; }
 .work-card__desc { color: var(--text-dim); font-size: 14px; margin-bottom: 14px; }
 .work-card audio { width: 100%; height: 38px; }
 
+/* 专辑封面横幅 */
+.work-card__cover--img { box-shadow: inset 0 -46px 40px -24px var(--card); }
+
+/* 演唱信息 */
+.work-card__vocal { font-size: 13px; color: var(--text); margin-bottom: 10px; }
+.vocal-label {
+  display: inline-block; font-size: 11px; color: var(--accent-2);
+  border: 1px solid rgba(230,205,154,.45); border-radius: 5px;
+  padding: 0 6px; margin-right: 8px; letter-spacing: 1px;
+}
+
+/* 作品播放器（旋转黑胶 + 滚动歌词） */
+.work-player { margin-top: 6px; }
+.player-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.player-tab {
+  font-size: 12px; padding: 3px 12px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg-alt); color: var(--text-dim);
+  cursor: pointer; transition: all .18s;
+}
+.player-tab:hover { color: var(--text); border-color: var(--accent); }
+.player-tab.active { background: var(--accent); color: #2a2142; border-color: var(--accent); font-weight: 600; }
+
+.vinyl-stage { display: flex; gap: 16px; align-items: center; }
+.vinyl {
+  position: relative; width: 112px; height: 112px; flex-shrink: 0; border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%, #18151f 0 2px, #221e2c 2px 4px);
+  box-shadow: 0 5px 18px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.05);
+  display: flex; align-items: center; justify-content: center;
+  animation: spin 9s linear infinite;
+}
+.vinyl__cover {
+  width: 60%; height: 60%; border-radius: 50%;
+  background-size: cover; background-position: center; background-color: var(--bg-alt);
+  box-shadow: 0 0 0 4px #0e0c14, 0 0 0 5px rgba(230,205,154,.45);
+}
+.vinyl__hole {
+  position: absolute; width: 9px; height: 9px; border-radius: 50%;
+  background: #0e0c14; box-shadow: 0 0 0 2px rgba(230,205,154,.4);
+}
+.lyrics {
+  position: relative; flex: 1; min-width: 0; height: 112px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
+          mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
+}
+.lyrics__inner { will-change: transform; }
+.lyrics__inner p { font-size: 12.5px; line-height: 1.95; color: var(--text-dim); margin: 0; }
+.lyrics__inner p:first-child { margin-top: 10px; }
+.lyrics--empty { display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 13px; }
+
+.ne-bar-wrap { margin-top: 12px; line-height: 0; }
+.ne-play {
+  width: 100%; padding: 9px 0; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(230,205,154,.5); background: rgba(230,205,154,.10);
+  color: var(--accent-2); font-size: 14px; font-weight: 600; letter-spacing: 1px;
+  transition: all .2s; line-height: 1.2;
+}
+.ne-play:hover { background: rgba(230,205,154,.2); color: #f5dca6; }
+.ne-bar { width: 100%; height: 66px; border: 0; border-radius: 8px; }
+.player-frame { line-height: 0; }
+.bili-frame { width: 100%; height: 200px; border: 0; border-radius: 8px; }
+.player-pending { font-size: 13px; color: var(--text-dim); padding: 8px 0; }
+
 /* ============ 接新详情 / 报价 ============ */
 .price-groups { display: flex; gap: 22px; align-items: flex-start; }
 .price-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
