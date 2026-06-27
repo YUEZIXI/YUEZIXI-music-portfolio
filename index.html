@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>月紫夕 · 音乐作品集</title>
+  <meta name="description" content="月紫夕 · 古风原创音乐作品展示与接新详情" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- 星空背景（铺满整页）+ 流星 -->
+  <div class="sky" aria-hidden="true">
+    <span class="shooting-star"></span>
+    <span class="shooting-star"></span>
+    <span class="shooting-star"></span>
+  </div>
+
+  <!-- 顶部导航 -->
+  <header class="nav">
+    <a class="nav__brand" href="#top"><span class="crescent crescent--sm" aria-hidden="true"></span> <span id="navName">作品集</span></a>
+    <nav class="nav__links">
+      <a href="#works">作品</a>
+      <a href="#services">接新</a>
+      <a href="#queue">排单</a>
+      <a href="#contact">联系</a>
+    </nav>
+  </header>
+
+  <!-- 首屏 / 关于我 -->
+  <section class="hero" id="top">
+    <div class="hero__stars" aria-hidden="true"></div>
+    <div class="hero__moonframe">
+      <img class="hero__avatar" id="avatar" alt="月紫夕" />
+    </div>
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="hero__pinyin" id="pinyin"></div>
+        <h1 id="name">—</h1>
+        <p class="hero__tagline" id="tagline">—</p>
+        <div class="hero__roles" id="roles"></div>
+        <p class="hero__bio" id="bio"></p>
+        <div class="hero__status" id="status"></div>
+        <div class="hero__platforms" id="platforms"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section class="section" id="works">
+    <h2 class="section__title">作品集<span class="section__py">Works</span></h2>
+
+    <div class="filters">
+      <div class="filters__group">
+        <span class="filters__label">工种</span>
+        <div class="chips" id="roleFilters"></div>
+      </div>
+      <div class="filters__group">
+        <span class="filters__label">风格</span>
+        <div class="chips" id="genreFilters"></div>
+      </div>
+    </div>
+
+    <div class="works-grid" id="worksGrid"></div>
+    <p class="empty" id="worksEmpty" hidden>没有符合条件的作品～</p>
+  </section>
+
+  <!-- 接新详情 / 报价 -->
+  <section class="section section--alt" id="services">
+    <h2 class="section__title">接新详情<span class="section__py">Commission Info</span></h2>
+    <div class="price-groups" id="priceGroups"></div>
+    <div class="free-note" id="freeNote"></div>
+    <p class="note">* 价格仅供参考，具体以沟通为准。本页仅作展示，约稿请通过下方联系方式私下沟通。</p>
+  </section>
+
+  <!-- 排单 -->
+  <section class="section" id="queue">
+    <h2 class="section__title">当前排单<span class="section__py">Queue</span></h2>
+    <div class="queue-list" id="queueList"></div>
+  </section>
+
+  <!-- 联系 -->
+  <section class="section section--alt" id="contact">
+    <h2 class="section__title">联系我<span class="section__py">Contact</span></h2>
+    <div class="contacts" id="contacts"></div>
+  </section>
+
+  <footer class="footer">
+    <span class="crescent" aria-hidden="true"></span>
+    <p>© <span id="year"></span> <span id="footName"></span> · 个人音乐作品集</p>
+  </footer>
+
+  <script src="assets/js/data.js?v=4"></script>
+  <script src="assets/js/app.js?v=4"></script>
+</body>
+</html>
