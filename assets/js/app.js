@@ -109,38 +109,51 @@
       </div>
     </div>`).join("") || `<p class="empty">暂无排单</p>`;
 
-  /* ---------- 作品播放器：旋转黑胶 + 滚动歌词 + 网易云试听 ---------- */
+  /* ---------- 作品播放器：自定义黑胶 + 真同步歌词 ---------- */
   const TRACKS = window.TRACKS || {};
+  let currentAudio = null;
 
-  // LRC → 干净歌词行（去时间轴、去空行）
-  function parseLyrics(lrc) {
+  const neOuter = (id) => `https://music.163.com/song/media/outer/url?id=${encodeURIComponent(id)}.mp3`;
+
+  // LRC → 带时间轴的歌词 [{t, text}]
+  function parseLRC(lrc) {
     if (!lrc) return [];
-    return lrc.split("\n")
-      .map(l => l.replace(/\[[0-9:.]+\]/g, "").trim())
-      .filter(l => l.length);
+    const out = [];
+    const re = /\[(\d{1,2}):(\d{1,2})(?:[.:](\d{1,3}))?\]/g;
+    lrc.split("\n").forEach(line => {
+      const text = line.replace(/\[[^\]]*\]/g, "").trim();
+      if (!text) return;
+      const stamps = []; let m; re.lastIndex = 0;
+      while ((m = re.exec(line))) {
+        stamps.push(parseInt(m[1]) * 60 + parseInt(m[2]) + (m[3] ? parseInt((m[3] + "00").slice(0, 3)) / 1000 : 0));
+      }
+      (stamps.length ? stamps : [0]).forEach(t => out.push({ t, text }));
+    });
+    return out.sort((a, b) => a.t - b.t);
   }
-  function neBarAuto(id) {
-    return `<iframe class="ne-bar" frameborder="no" marginwidth="0" marginheight="0"
-      src="https://music.163.com/outchain/player?type=2&id=${encodeURIComponent(id)}&auto=1&height=66"></iframe>`;
-  }
+
   function biliFrame(bv) {
-    return `<iframe class="bili-frame" scrolling="no" frameborder="no" framespacing="0" allowfullscreen="true"
+    return `<iframe class="bili-frame" scrolling="no" frameborder="no" allowfullscreen="true"
       src="https://player.bilibili.com/player.html?bvid=${encodeURIComponent(bv)}&autoplay=0&high_quality=1"></iframe>`;
   }
   function vinylBlock(w) {
     const t = TRACKS[w.netease] || {};
-    const lines = parseLyrics(t.lrc);
-    const coverStyle = t.cover ? `style="background-image:url('${esc(t.cover)}')"` : "";
+    const lines = parseLRC(t.lrc);
+    const pos = w.coverPos || "center";
+    const cover = t.cover ? `background-image:url('${esc(t.cover)}');background-position:${esc(pos)}` : "";
     const lyrics = lines.length
-      ? `<div class="lyrics"><div class="lyrics__inner">${lines.map(l => `<p>${esc(l)}</p>`).join("")}</div></div>`
+      ? `<div class="lyrics"><div class="lyrics__inner">${lines.map(l => `<p data-t="${l.t}">${esc(l.text)}</p>`).join("")}</div></div>`
       : `<div class="lyrics lyrics--empty">暂无歌词</div>`;
-    return `<div class="vinyl-stage">
-        <div class="vinyl"><span class="vinyl__cover" ${coverStyle}></span><span class="vinyl__hole"></span></div>
+    return `<div class="vinyl-stage" data-state="paused">
+        <div class="vinyl">
+          <span class="vinyl__cover" style="${cover}"></span>
+          <span class="vinyl__hole"></span>
+          <button class="vinyl__btn" type="button" aria-label="播放 / 暂停">▶</button>
+        </div>
         ${lyrics}
       </div>
-      <div class="ne-bar-wrap" data-id="${esc(w.netease)}">
-        <button class="ne-play" type="button">▶ 试听 · 网易云</button>
-      </div>`;
+      <div class="p2-bar"><div class="p2-fill"></div></div>
+      <audio class="p2-audio" preload="none" src="${neOuter(w.netease)}"></audio>`;
   }
   function workPlayer(w) {
     const hasN = !!(w.netease && String(w.netease).trim());
@@ -156,56 +169,76 @@
         <button class="player-tab" data-src="bilibili">▶ B站视频</button>
       </div>` : "";
     const body = hasN ? vinylBlock(w) : `<div class="player-frame">${biliFrame(w.bilibili)}</div>`;
-    return `<div class="work-player" data-netease="${esc(w.netease || "")}" data-bilibili="${esc(w.bilibili || "")}" data-cur="${hasN ? "netease" : "bilibili"}">
+    return `<div class="work-player" data-netease="${esc(w.netease || "")}" data-bilibili="${esc(w.bilibili || "")}" data-coverpos="${esc(w.coverPos || "")}" data-cur="${hasN ? "netease" : "bilibili"}">
       ${tabs}
       <div class="player-body">${body}</div>
     </div>`;
   }
 
-  // 点击「试听」→ 加载网易云播放条（自动播放，用户手势内允许）
+  // 给每个黑胶播放器接上：点击播放/暂停、转盘随播放、歌词随进度同步
+  function setupPlayers(scope) {
+    (scope || document).querySelectorAll(".vinyl-stage").forEach(stage => {
+      if (stage.__wired) return; stage.__wired = true;
+      const root = stage.parentElement;
+      const audio = root.querySelector(".p2-audio");
+      const inner = stage.querySelector(".lyrics__inner");
+      const panel = stage.querySelector(".lyrics");
+      const fill = root.querySelector(".p2-fill");
+      const bar = root.querySelector(".p2-bar");
+      const btn = stage.querySelector(".vinyl__btn");
+      const vinyl = stage.querySelector(".vinyl");
+      if (!audio || !vinyl) return;
+      const lines = inner ? [...inner.querySelectorAll("p")] : [];
+      const times = lines.map(l => parseFloat(l.dataset.t || "0"));
+
+      vinyl.addEventListener("click", () => {
+        if (audio.paused) {
+          if (currentAudio && currentAudio !== audio) currentAudio.pause();
+          currentAudio = audio;
+          audio.play().catch(() => {});
+        } else audio.pause();
+      });
+      audio.addEventListener("play",  () => { stage.dataset.state = "playing"; if (btn) btn.textContent = "⏸"; });
+      audio.addEventListener("pause", () => { stage.dataset.state = "paused";  if (btn) btn.textContent = "▶"; });
+      audio.addEventListener("ended", () => { stage.dataset.state = "paused";  if (btn) btn.textContent = "▶"; });
+
+      let last = -1;
+      audio.addEventListener("timeupdate", () => {
+        if (fill && audio.duration) fill.style.width = (audio.currentTime / audio.duration * 100) + "%";
+        const ct = audio.currentTime + 0.2;
+        let idx = -1;
+        for (let i = 0; i < times.length; i++) { if (times[i] <= ct) idx = i; }
+        if (idx !== last) {
+          last = idx;
+          lines.forEach((l, i) => l.classList.toggle("active", i === idx));
+          if (idx >= 0 && panel && inner) {
+            const line = lines[idx];
+            inner.style.transform = `translateY(${panel.clientHeight / 2 - line.offsetTop - line.offsetHeight / 2}px)`;
+          }
+        }
+      });
+      if (bar) bar.addEventListener("click", (e) => {
+        const r = bar.getBoundingClientRect();
+        if (audio.duration) audio.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * audio.duration;
+      });
+    });
+  }
+
+  // 网易云 / B站 切换
   document.addEventListener("click", (e) => {
-    const play = e.target.closest(".ne-play");
-    if (play) {
-      const wrap = play.closest(".ne-bar-wrap");
-      wrap.innerHTML = neBarAuto(wrap.dataset.id);
-      return;
-    }
-    // 网易云 / B站 切换
     const tab = e.target.closest(".player-tab");
     if (!tab) return;
     const wrap = tab.closest(".work-player");
     const src = tab.dataset.src;
     if (!wrap || wrap.dataset.cur === src) return;
+    if (currentAudio) currentAudio.pause();
     wrap.dataset.cur = src;
     wrap.querySelectorAll(".player-tab").forEach(t => t.classList.toggle("active", t === tab));
-    const w = { netease: wrap.dataset.netease, bilibili: wrap.dataset.bilibili };
+    const w = { netease: wrap.dataset.netease, bilibili: wrap.dataset.bilibili, coverPos: wrap.dataset.coverpos };
     wrap.querySelector(".player-body").innerHTML =
       src === "netease" ? vinylBlock(w) : `<div class="player-frame">${biliFrame(w.bilibili)}</div>`;
-    startLyricsScroll(wrap);
+    setupPlayers(wrap);
   });
-
-  // 歌词缓慢自动滚动（鼠标悬停暂停）
-  function startLyricsScroll(scope) {
-    (scope || document).querySelectorAll(".lyrics").forEach(panel => {
-      if (panel.__scrolling) return;
-      const inner = panel.querySelector(".lyrics__inner");
-      if (!inner) return;
-      panel.__scrolling = true;
-      let pos = 0, paused = false;
-      panel.addEventListener("mouseenter", () => paused = true);
-      panel.addEventListener("mouseleave", () => paused = false);
-      (function step() {
-        if (!document.body.contains(panel)) { panel.__scrolling = false; return; }
-        const max = inner.scrollHeight - panel.clientHeight;
-        if (max > 4 && !paused) {
-          pos += 0.3;
-          if (pos > max + 24) pos = 0;
-          inner.style.transform = `translateY(${-Math.min(pos, max)}px)`;
-        }
-        requestAnimationFrame(step);
-      })();
-    });
-  }
 
   /* ---------- 作品筛选 + 渲染 ---------- */
   const filterState = { role: "全部", genre: "全部" };
@@ -257,7 +290,7 @@
         </div>
       </div>`;
     }).join("");
-    startLyricsScroll();
+    setupPlayers();
   }
   renderWorks();
 })();

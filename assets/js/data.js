@@ -47,6 +47,7 @@ window.SITE_DATA = {
       genres: ["古风 / 国风"],
       netease: "3376680349",
       bilibili: "",            // ← B站视频 BV 号填这里，填了会出现「网易云/B站」切换
+      coverPos: "center 15%",  // 封面往上截，露出歌名题字
       vocal: "裂天、小坠、小曲儿、少年霜",
       desc: "五四青年节原创曲。"
     },

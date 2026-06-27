@@ -208,7 +208,7 @@ a { color: inherit; text-decoration: none; }
   padding: 0 6px; margin-right: 8px; letter-spacing: 1px;
 }
 
-/* 作品播放器（旋转黑胶 + 滚动歌词） */
+/* 作品播放器（自定义黑胶 + 同步歌词） */
 .work-player { margin-top: 6px; }
 .player-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
 .player-tab {
@@ -221,12 +221,13 @@ a { color: inherit; text-decoration: none; }
 
 .vinyl-stage { display: flex; gap: 16px; align-items: center; }
 .vinyl {
-  position: relative; width: 112px; height: 112px; flex-shrink: 0; border-radius: 50%;
+  position: relative; width: 112px; height: 112px; flex-shrink: 0; border-radius: 50%; cursor: pointer;
   background: repeating-radial-gradient(circle at 50% 50%, #18151f 0 2px, #221e2c 2px 4px);
   box-shadow: 0 5px 18px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.05);
   display: flex; align-items: center; justify-content: center;
-  animation: spin 9s linear infinite;
+  animation: spin 9s linear infinite; animation-play-state: paused;
 }
+.vinyl-stage[data-state="playing"] .vinyl { animation-play-state: running; }
 .vinyl__cover {
   width: 60%; height: 60%; border-radius: 50%;
   background-size: cover; background-position: center; background-color: var(--bg-alt);
@@ -236,25 +237,27 @@ a { color: inherit; text-decoration: none; }
   position: absolute; width: 9px; height: 9px; border-radius: 50%;
   background: #0e0c14; box-shadow: 0 0 0 2px rgba(230,205,154,.4);
 }
-.lyrics {
-  position: relative; flex: 1; min-width: 0; height: 112px; overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
-          mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
+.vinyl__btn {
+  position: absolute; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(14,12,20,.6); color: #fff; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; transition: opacity .2s;
 }
-.lyrics__inner { will-change: transform; }
-.lyrics__inner p { font-size: 12.5px; line-height: 1.95; color: var(--text-dim); margin: 0; }
-.lyrics__inner p:first-child { margin-top: 10px; }
-.lyrics--empty { display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 13px; }
+.vinyl:hover .vinyl__btn { opacity: 1; }
+.vinyl-stage[data-state="playing"] .vinyl__btn { opacity: 0; }
 
-.ne-bar-wrap { margin-top: 12px; line-height: 0; }
-.ne-play {
-  width: 100%; padding: 9px 0; border-radius: 999px; cursor: pointer;
-  border: 1px solid rgba(230,205,154,.5); background: rgba(230,205,154,.10);
-  color: var(--accent-2); font-size: 14px; font-weight: 600; letter-spacing: 1px;
-  transition: all .2s; line-height: 1.2;
+.lyrics {
+  position: relative; flex: 1; min-width: 0; height: 120px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
+          mask-image: linear-gradient(180deg, transparent, #000 26%, #000 74%, transparent);
 }
-.ne-play:hover { background: rgba(230,205,154,.2); color: #f5dca6; }
-.ne-bar { width: 100%; height: 66px; border: 0; border-radius: 8px; }
+.lyrics__inner { will-change: transform; transition: transform .45s ease; }
+.lyrics__inner p { font-size: 12.5px; line-height: 2.0; color: var(--text-dim); margin: 0; transition: color .25s; }
+.lyrics__inner p.active { color: var(--accent-2); font-weight: 600; }
+.lyrics--empty { display: flex; align-items: center; justify-content: center; height: 120px; color: var(--text-dim); font-size: 13px; }
+
+.p2-bar { margin-top: 12px; height: 5px; border-radius: 999px; background: var(--bg-alt); cursor: pointer; overflow: hidden; }
+.p2-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+.p2-audio { display: none; }
 .player-frame { line-height: 0; }
 .bili-frame { width: 100%; height: 200px; border: 0; border-radius: 8px; }
 .player-pending { font-size: 13px; color: var(--text-dim); padding: 8px 0; }
