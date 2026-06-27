@@ -10,10 +10,10 @@ window.SITE_DATA = {
     tagline: "作曲 · 编曲 · 词作 —— 古风原创",
     avatar: "assets/img/avatar.jpg",          // 头像图：assets/img/avatar.jpg
     qqQr: "assets/img/qq-qr.jpg",             // QQ 二维码：保持原图，不做滤镜，确保可扫描
-    bio: "古风原创音乐人，主营作曲 / 编曲 / 词作 / 策划 / 和声。承接常规古风、流行约稿，优质原创可商。",
+    bio: "古风原创音乐人，主营作曲 / 作词 / 策划 / 和声。承接常规古风、流行约稿，优质原创可商。",
     // "open"=接新中  "limited"=少量名额  "closed"=暂停接单
     commissionStatus: "open",
-    roles: ["作曲", "作词", "策划", "和声编写", "虚拟歌姬调音"],
+    roles: ["作曲", "作词", "策划", "和声"],
 
     // 音乐平台主页（显示在「接新」状态下方，点击新标签页跳转）
     platforms: [
