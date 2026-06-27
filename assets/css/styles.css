@@ -339,8 +339,9 @@ a { color: inherit; text-decoration: none; }
 
 /* 右上角 · 圆形头像月 + 月光光环 */
 .hero__moonframe {
+  --moon: clamp(130px, 19vw, 205px);
   position: absolute; top: 7%; right: 8%; z-index: 0;
-  width: clamp(130px, 19vw, 205px); aspect-ratio: 1; border-radius: 50%;
+  width: var(--moon); height: var(--moon); border-radius: 50%;
   /* 头像未放入前的发光占位月盘 */
   background: radial-gradient(circle at 50% 44%,
     rgba(250,243,219,.55) 0%, rgba(236,221,184,.22) 55%, rgba(110,95,150,.32) 82%);
@@ -401,7 +402,7 @@ a { color: inherit; text-decoration: none; }
 .footer { display: flex; align-items: center; justify-content: center; gap: 12px; }
 
 @media (max-width: 760px) {
-  .hero__moonframe { position: static; margin: 0 auto 16px; width: clamp(120px, 42vw, 175px); }
+  .hero__moonframe { position: static; margin: 0 auto 16px; --moon: clamp(120px, 42vw, 175px); }
   .hero__text { max-width: 100%; text-align: center; }
   .hero__roles, .hero__status { justify-content: center; }
   .hero__platforms { align-items: center; }
