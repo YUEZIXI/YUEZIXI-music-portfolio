@@ -7,7 +7,7 @@ window.SITE_DATA = {
   profile: {
     name: "月紫夕",
     pinyin: "YUE ZI XI",
-    tagline: "作曲 · 编曲 · 词作 —— 古风原创",
+    tagline: "全平台 id：月紫夕YUEZIXI",
     avatar: "assets/img/avatar.jpg",          // 头像图：assets/img/avatar.jpg
     qqQr: "assets/img/qq-qr.jpg",             // QQ 二维码：保持原图，不做滤镜，确保可扫描
     bio: "古风原创音乐人，主营作曲 / 作词 / 策划 / 和声。承接常规古风、流行约稿，优质原创可商。",
