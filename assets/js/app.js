@@ -85,6 +85,7 @@
                 ${it.desc ? `<div class="price-item__desc">${esc(it.desc)}</div>` : ""}
               </div>`).join("")}
           </div>
+          ${g.afterNote ? `<div class="price-sub__after">${esc(g.afterNote)}</div>` : ""}
         </div>`).join("")}
       ${(cat.extra && cat.extra.length)
         ? `<ul class="price-extra">${cat.extra.map(e => `<li>${esc(e)}</li>`).join("")}</ul>`
