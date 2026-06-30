@@ -315,6 +315,42 @@ a { color: inherit; text-decoration: none; }
 /* 专辑封面横幅 */
 .work-card__cover--img { box-shadow: inset 0 -46px 40px -24px var(--card); }
 
+/* ============ 团队主页 ============ */
+.hero__tagline--big {
+  font-family: var(--serif); font-size: clamp(24px, 4.5vw, 36px);
+  color: var(--accent-2); letter-spacing: 4px; margin: 8px 0 18px;
+}
+.hero__cta {
+  display: inline-block; margin-top: 18px; padding: 9px 24px; border-radius: 999px;
+  border: 1px solid rgba(230,205,154,.5); background: rgba(230,205,154,.10);
+  color: var(--accent-2); font-size: 15px; font-weight: 600; letter-spacing: 1px; transition: all .2s;
+}
+.hero__cta:hover { background: rgba(230,205,154,.2); color: #f5dca6; }
+
+.members-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.member-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 28px 22px; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); transition: all .22s; position: relative; overflow: hidden;
+}
+.member-card::after {
+  content: ""; position: absolute; top: 0; left: 0; width: 45%; height: 100%; z-index: 2;
+  background: linear-gradient(105deg, transparent, rgba(255,245,205,.22), transparent);
+  transform: translateX(-160%) skewX(-18deg); pointer-events: none;
+}
+.member-card:hover { border-color: var(--accent-2); transform: translateY(-4px); }
+.member-card:hover::after { animation: sheen 1.1s ease; }
+.member-card__avatar {
+  width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-bottom: 16px;
+  border: 2px solid var(--accent-2); background: var(--bg-alt);
+  box-shadow: 0 0 0 5px rgba(198,178,240,.12), 0 0 22px rgba(245,236,205,.28);
+}
+.member-card__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.member-card__name { font-family: var(--serif); font-size: 23px; color: var(--accent); letter-spacing: 2px; }
+.member-card__title { font-size: 13px; color: var(--accent-2); margin: 7px 0 8px; }
+.member-card__desc { font-size: 13px; color: var(--text-dim); line-height: 1.75; }
+.member-card__enter { margin-top: 16px; font-size: 13px; color: var(--accent-2); font-weight: 600; letter-spacing: 1px; }
+
 /* 演唱信息 */
 .work-card__vocal { font-size: 13px; color: var(--text); margin-bottom: 10px; }
 .vocal-label {

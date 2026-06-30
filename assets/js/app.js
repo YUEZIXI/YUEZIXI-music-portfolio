@@ -2,7 +2,9 @@
  *  渲染逻辑 —— 一般不用改。内容请改 data.js
  * ===================================================================*/
 (function () {
-  const D = window.SITE_DATA;
+  const _mid = new URLSearchParams(location.search).get("id");
+  const D = (_mid && window.MEMBERS && window.MEMBERS[_mid]) || window.SITE_DATA;
+  if (D && D.profile) document.title = D.profile.name + " · 音乐作品集";
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
 

@@ -175,3 +175,7 @@ window.SITE_DATA = {
   /* ---------- 5. 排单 / 接单队列 ---------- */
   queue: []
 };
+
+/* 成员注册（团队主页用）。以后新增成员：再写一个数据文件，往 MEMBERS 里加一条即可 */
+window.MEMBERS = window.MEMBERS || {};
+window.MEMBERS["yuezixi"] = window.SITE_DATA;
