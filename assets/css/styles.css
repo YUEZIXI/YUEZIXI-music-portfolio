@@ -713,9 +713,35 @@ a { color: inherit; text-decoration: none; }
   width: var(--moon); height: var(--moon); border-radius: 50%;
   isolation: isolate;
   overflow: visible;
+  display: flex; align-items: center; justify-content: center;
   /* 头像未放入前的发光占位月盘 */
   background: radial-gradient(circle at 50% 44%,
     rgba(250,243,219,.55) 0%, rgba(236,221,184,.22) 55%, rgba(110,95,150,.32) 82%);
+}
+/* 团队 LOGO：月球中间一枚鎏金月牙 */
+.hero__moonframe .moon-emblem {
+  width: clamp(58px, 8.5vw, 86px); height: clamp(58px, 8.5vw, 86px);
+  box-shadow: inset -15px -9px 0 0 var(--accent-2);
+  filter: drop-shadow(0 0 10px rgba(230,205,154,.6));
+  z-index: 1;
+}
+
+/* 背景音乐浮动按钮 */
+.bgm-btn {
+  position: fixed; right: 22px; bottom: 22px; z-index: 90;
+  width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(230,205,154,.55); color: var(--accent-2); font-size: 20px;
+  background: rgba(34,26,54,.85); backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.45);
+  display: flex; align-items: center; justify-content: center; transition: all .2s;
+}
+.bgm-btn:hover { background: rgba(230,205,154,.18); color: #f5dca6; transform: translateY(-2px); }
+.bgm-btn .bgm-ico { display: inline-block; line-height: 1; }
+.bgm-btn.playing .bgm-ico { animation: spin 3.2s linear infinite; }
+.bgm-btn:not(.playing) { animation: bgmPulse 2.4s ease-in-out infinite; }
+@keyframes bgmPulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(0,0,0,.45), 0 0 0 0 rgba(230,205,154,.35); }
+  50%      { box-shadow: 0 6px 20px rgba(0,0,0,.45), 0 0 0 8px rgba(230,205,154,0); }
 }
 /* 外层月华辉光（呼吸） */
 .hero__moonframe::before {

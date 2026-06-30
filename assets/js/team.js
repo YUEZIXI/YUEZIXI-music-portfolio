@@ -7,6 +7,9 @@ window.TEAM = {
   tagline: "承接音乐制作 · 美术设计",
   intro: "承接作曲 / 作词 / 编曲 / 混音 / 演唱 等全流程音乐制作，以及曲绘 / 题字 / 海报 / 排版 等美术设计。点击下方成员进入个人主页。",
 
+  // 背景音乐：填网易云歌曲 ID（右下角出现播放按钮，点击播放/暂停，循环）。留空则不显示
+  bgm: { netease: "3376680349", title: "再越千山" },
+
   // 成员列表：点击卡片进入 member.html?id=<id>
   // id 必须和 data.js 里 window.MEMBERS 注册的 key 一致
   members: [

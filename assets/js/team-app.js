@@ -29,4 +29,26 @@
       <div class="member-card__enter">进入主页 ${m.url ? "↗" : "→"}</div>
     </a>`;
   }).join("") || `<p class="empty">暂无成员</p>`;
+
+  /* ---------- 背景音乐（右下角浮动按钮） ---------- */
+  if (T.bgm && T.bgm.netease) {
+    const audio = new Audio(`https://music.163.com/song/media/outer/url?id=${encodeURIComponent(T.bgm.netease)}.mp3`);
+    audio.loop = true;
+    audio.volume = 0.5;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "bgm-btn";
+    btn.title = "背景音乐：" + (T.bgm.title || "");
+    btn.setAttribute("aria-label", "播放 / 暂停背景音乐");
+    btn.innerHTML = '<span class="bgm-ico">♪</span>';
+    document.body.appendChild(btn);
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
+    });
+    audio.addEventListener("play",  () => { btn.classList.add("playing"); btn.querySelector(".bgm-ico").textContent = "♪"; });
+    audio.addEventListener("pause", () => { btn.classList.remove("playing"); });
+  }
 })();
