@@ -27,6 +27,7 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["策划"],
       genres: ["同人"],
       desc: "王者孙权同人曲 · 担任策划",
+      netease: "3388475514",
       url: "https://163cn.tv/985wpLy"
     },
     {
@@ -34,6 +35,7 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["策划"],
       genres: ["流行"],
       desc: "担任策划",
+      netease: "3357332158",
       url: "https://163cn.tv/985MWIf"
     },
     {
@@ -41,6 +43,7 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["策划"],
       genres: ["古风 / 国风"],
       desc: "担任策划",
+      netease: "3335313869",
       url: "https://163cn.tv/985CC8Z"
     },
     {
@@ -48,6 +51,8 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["歌手统筹"],
       genres: ["同人"],
       desc: "第五人格 8 周年全角色大合唱 · 担任歌手统筹",
+      bilibili: "BV1vHDyBCEQz",
+      cover: "https://i2.hdslb.com/bfs/archive/54f2abf2e98cfdda23b49c0baf29b6913f3195e8.jpg",
       url: "https://b23.tv/ynmuc4J"
     },
     {
@@ -63,6 +68,7 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["和编"],
       genres: ["同人"],
       desc: "崩坏星穹铁道三周年原创同人角色歌 · 担任和编",
+      netease: "3376258352",
       url: "https://163cn.tv/9847n39"
     },
     {
@@ -70,6 +76,7 @@ window.MEMBERS["shiyaoyu"] = {
       roles: ["和编"],
       genres: ["流行"],
       desc: "担任和编",
+      netease: "3368755801",
       url: "https://163cn.tv/9845dLR"
     }
   ],
@@ -108,3 +115,26 @@ window.MEMBERS["shiyaoyu"] = {
 
   queue: []
 };
+
+window.TRACKS = Object.assign(window.TRACKS || {}, {
+  "3388475514": {
+    name: "舵江东-王者孙权同人",
+    cover: "https://p2.music.126.net/xqBHOfMeTlAgtpCKI3w2rQ==/109951173311621264.jpg"
+  },
+  "3357332158": {
+    name: "莉莉丝的晚餐",
+    cover: "https://p2.music.126.net/XO8UARd1bZ7wPMMRtfSpUw==/109951172861034002.jpg"
+  },
+  "3335313869": {
+    name: "巫山海棠",
+    cover: "https://p2.music.126.net/7lpAsr26FehPahKOVh6TCw==/109951172533320209.jpg"
+  },
+  "3376258352": {
+    name: "破晓星途（崩坏星穹铁道三周年原创同人角色歌）",
+    cover: "https://p1.music.126.net/6URUruvOSLLuD2qZgpwiyA==/109951173142821624.jpg"
+  },
+  "3368755801": {
+    name: "你是人间岁月诗",
+    cover: "https://p1.music.126.net/tU8bYZ2F_dBPZk4Rg95qtQ==/109951173027413323.jpg"
+  }
+});
