@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>音乐工作室 · 承接音乐制作</title>
   <meta name="description" content="承接音乐制作 —— 作曲 / 作词 / 编曲 / 混音 / 演唱" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=27" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=28" />
 </head>
 <body>
 
@@ -34,6 +34,7 @@
         <h1 id="teamName">—</h1>
         <p class="hero__tagline hero__tagline--big" id="teamTagline">承接音乐制作</p>
         <p class="hero__bio" id="teamIntro"></p>
+        <p class="team-collab" id="teamCollab"></p>
         <a class="hero__cta" href="#members">查看成员 ↓</a>
       </div>
     </div>
@@ -42,7 +43,14 @@
   <!-- 成员 -->
   <section class="section" id="members">
     <h2 class="section__title">团队成员<span class="section__py">Members</span></h2>
+    <div class="filters filters--team">
+      <div class="filters__group">
+        <span class="filters__label">工种</span>
+        <div class="chips" id="roleFilters"></div>
+      </div>
+    </div>
     <div class="members-grid" id="membersGrid"></div>
+    <p class="empty" id="membersEmpty" hidden>没有该工种的成员～</p>
   </section>
 
   <footer class="footer">
@@ -50,7 +58,7 @@
     <p>© <span id="year"></span> <span id="footName"></span> · 承接音乐制作</p>
   </footer>
 
-  <script src="assets/js/team.js?v=27"></script>
-  <script src="assets/js/team-app.js?v=27"></script>
+  <script src="assets/js/team.js?v=28"></script>
+  <script src="assets/js/team-app.js?v=28"></script>
 </body>
 </html>

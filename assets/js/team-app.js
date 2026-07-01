@@ -15,8 +15,18 @@
   $("footName").textContent = T.name || "";
   document.title = (T.name || "音乐工作室") + " · 承接音乐制作";
 
-  $("membersGrid").innerHTML = (T.members || []).map(m => {
-    // 有 url 就跳到外部主页（新标签打开），否则进站内 member.html?id=
+  const members = T.members || [];
+
+  /* ---------- 工作室合作名单（各成员 collab 去重汇总） ---------- */
+  const collabAll = [...new Set(members.flatMap(m => m.collab || []))];
+  if ($("teamCollab")) {
+    $("teamCollab").innerHTML = collabAll.length
+      ? `<span class="team-collab__label">团队成员合作名单</span>${collabAll.map(esc).join(" · ")}<span class="team-collab__note">（排名不分先后）</span>`
+      : "";
+  }
+
+  /* ---------- 成员卡渲染 + 工种筛选 ---------- */
+  function memberCard(m) {
     const href = m.url ? esc(m.url) : `member.html?id=${encodeURIComponent(m.id || "")}`;
     const ext = m.url ? ' target="_blank" rel="noopener"' : "";
     return `<a class="member-card" href="${href}"${ext}>
@@ -26,9 +36,29 @@
       <div class="member-card__name">${esc(m.name)}</div>
       ${m.title ? `<div class="member-card__title">${esc(m.title)}</div>` : ""}
       ${m.desc ? `<div class="member-card__desc">${esc(m.desc)}</div>` : ""}
+      ${(m.collab && m.collab.length) ? `<div class="member-card__collab"><span>合作歌手</span>${m.collab.map(esc).join(" · ")}</div>` : ""}
       <div class="member-card__enter">进入主页 ${m.url ? "↗" : "→"}</div>
     </a>`;
-  }).join("") || `<p class="empty">暂无成员</p>`;
+  }
+  function renderMembers(role) {
+    const list = (role && role !== "全部") ? members.filter(m => (m.roles || []).includes(role)) : members;
+    if ($("membersEmpty")) $("membersEmpty").hidden = list.length > 0;
+    $("membersGrid").innerHTML = list.map(memberCard).join("") || "";
+  }
+
+  // 工种筛选 chips
+  const allRoles = [...new Set(members.flatMap(m => m.roles || []))];
+  if ($("roleFilters")) {
+    $("roleFilters").innerHTML = ["全部", ...allRoles]
+      .map((r, i) => `<button class="chip${i === 0 ? " active" : ""}" data-val="${esc(r)}">${esc(r)}</button>`).join("");
+    $("roleFilters").addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
+      $("roleFilters").querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip));
+      renderMembers(chip.dataset.val);
+    });
+  }
+  renderMembers("全部");
 
   /* ---------- 背景音乐（右下角浮动按钮） ---------- */
   if (T.bgm && T.bgm.netease) {
