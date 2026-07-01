@@ -236,12 +236,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============ 作品卡片 ============ */
-.works-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.works-grid { columns: 300px 3; column-gap: 20px; }
 .work-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  break-inside: avoid; -webkit-column-break-inside: avoid; margin-bottom: 20px;
   transition: transform .2s, border-color .2s, box-shadow .25s, opacity .45s;
 }
 .work-card::before {
@@ -358,8 +359,8 @@ a { color: inherit; text-decoration: none; }
   background: var(--bg-alt); overflow: hidden; line-height: 0;
   border-bottom: 1px solid var(--border);
 }
-.art-thumb img { width: 100%; height: 200px; object-fit: cover; transition: transform .35s ease; display: block; }
-.art-thumb:hover img { transform: scale(1.05); }
+.art-thumb img { width: 100%; height: auto; display: block; transition: filter .3s ease; }
+.art-thumb:hover img { filter: brightness(1.08); }
 
 .lightbox {
   position: fixed; inset: 0; z-index: 200; display: none;
