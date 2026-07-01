@@ -21,7 +21,7 @@ window.TEAM = {
       roles: ["作曲", "作词", "策划", "和声"],
       avatar: "assets/img/avatar.jpg",
       desc: "古风原创音乐人 · 全平台 id：月紫夕YUEZIXI",
-      collab: ["少年霜", "小曲儿", "兰音Reine", "诺言Jason"]
+      collab: ["少年霜", "小曲儿", "兰音Reine", "诺言Jason", "裂天", "南偿", "解忧草", "流浪的蛙蛙", "刷牙", "Braska", "南风ZJN"]
     },
     {
       id: "lingxue",
@@ -30,7 +30,7 @@ window.TEAM = {
       roles: ["作曲", "编曲"],
       avatar: "assets/img/lingxue/TouXiang.jpg",
       desc: "工种作编曲，擅长古风 / 现风 / 电子。",
-      collab: ["星尘Infinity", "赤羽", "苍穹", "兰音Reine"]
+      collab: ["星尘Infinity", "赤羽", "苍穹", "兰音Reine", "裂天", "南偿", "南风ZJN", "云三"]
     },
     {
       id: "chiwei",
