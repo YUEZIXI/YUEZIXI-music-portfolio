@@ -55,7 +55,7 @@
       const inner = `<div class="contact-item__label">${esc(m.label)}</div>
                      <div class="contact-item__value">${esc(v)}</div>
                      ${k === "qq" && p.qqQr ? `<div class="contact-item__qr">
-                       <img src="${esc(p.qqQr)}" alt="QQ 二维码" loading="lazy" decoding="async" />
+                       <img src="${esc(p.qqQr)}" alt="QQ 二维码" loading="lazy" decoding="async" onerror="this.closest('.contact-item__qr').style.display='none'" />
                        <span>扫码添加 QQ</span>
                      </div>` : ""}`;
       const cls = `contact-item${k === "qq" && p.qqQr ? " contact-item--qr" : ""}`;

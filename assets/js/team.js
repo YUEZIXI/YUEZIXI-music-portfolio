@@ -58,6 +58,15 @@ window.TEAM = {
       avatar: "assets/img/shaodeng/avatar.jpg",
       desc: "佛系人，主古风 / 流行。当前排单到 7 月。",
       collab: ["一颗狼星", "小时姑娘", "哦漏", "梦璟SAYA", "晃儿", "醉雪", "玫月", "少年霜", "解忧草", "南偿", "玉璇玑", "唐宋", "云三", "流光Hesh", "毛毛酱"]
+    },
+    {
+      id: "yingling",
+      name: "莹菱",
+      title: "混音",
+      roles: ["混音"],
+      avatar: "assets/img/yingling/avatar.jpg",
+      desc: "混音师 · 长期接新，主古风 / 流行。",
+      collab: ["-花塚-", "盐酸", "敛云烟", "张申骋", "sky阿肆", "青璃", "翊歌Yier", "池绛不吃姜", "江陵"]
     }
     // 站内成员：加一条带 id 的，并在对应数据文件里 window.MEMBERS["新id"] = {...}
     // 外部成员：加一条带 url 的（指向对方网站），就会外链跳转
