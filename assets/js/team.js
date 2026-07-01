@@ -75,6 +75,15 @@ window.TEAM = {
       avatar: "assets/img/yingling/avatar.jpg",
       desc: "混音师 · 长期接新，主古风 / 流行。",
       collab: ["-花塚-", "盐酸", "敛云烟", "张申骋", "sky阿肆", "青璃", "翊歌Yier", "池绛不吃姜", "江陵"]
+    },
+    {
+      id: "shiyaoyu",
+      name: "时爻彧",
+      title: "策划 · 统筹 · 监制 · 和编",
+      roles: ["策划", "统筹", "监制", "和编"],
+      avatar: "assets/img/shiyaoyu/avatar.jpg",
+      desc: "和编擅长多层厚和声，全风格可做；常规工期 1-3 天。",
+      collab: []
     }
     // 站内成员：加一条带 id 的，并在对应数据文件里 window.MEMBERS["新id"] = {...}
     // 外部成员：加一条带 url 的（指向对方网站），就会外链跳转

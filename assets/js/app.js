@@ -169,6 +169,8 @@
     if (!hasN && !hasB) {
       return w.audio
         ? `<audio controls preload="none" src="${esc(w.audio)}"></audio>`
+        : w.url
+        ? `<a class="work-link" href="${esc(w.url)}" target="_blank" rel="noopener">查看作品 ↗</a>`
         : `<div class="player-pending">🔗 链接待补充</div>`;
     }
     const tabs = (hasN && hasB) ? `
