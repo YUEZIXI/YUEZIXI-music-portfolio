@@ -27,12 +27,23 @@ window.MEMBERS["qingchuji"] = {
   ],
   priceGroups: [
     {
-      category: "作词 · 策划 · 文案", pinyin: "Lyrics · Planning",
+      category: "作词", pinyin: "Lyrics",
       groups: [{
         note: "词龄 13+，主古风，兼通各类风格，可接苗语词作。",
-        items: [ { name: "作词 / 策划 / 文案", price: "价格详谈", desc: "按题材、用途、商用与否具体商定。" } ],
+        items: [
+          { name: "非商", price: "¥400", desc: "折扣价 ¥350" },
+          { name: "商业", price: "¥800 起", desc: "" }
+        ],
         afterNote: "工期：两周至一个月不等。加急 +20%。接受合理修改三次左右。"
       }]
+    },
+    {
+      category: "策划", pinyin: "Planning",
+      groups: [{ items: [ { name: "策划", price: "¥400", desc: "不含制作费用。" } ] }]
+    },
+    {
+      category: "文案", pinyin: "Copywriting",
+      groups: [{ items: [ { name: "文案", price: "随机掉落", desc: "看心情，欢迎详谈～" } ] }]
     }
   ],
   freeNote: { title: "联系", desc: "约稿请加 QQ 1095152678 详谈。" },
