@@ -26,6 +26,13 @@ window.TEAM = {
       title: "作曲 · 编曲",
       avatar: "assets/img/lingxue/TouXiang.jpg",
       desc: "工种作编曲，擅长古风 / 现风 / 电子。"
+    },
+    {
+      id: "chiwei",
+      name: "池未请早睡",
+      title: "和声 · 演唱 · 题字",
+      avatar: "assets/img/chiwei/avatar.jpg",
+      desc: "原创唱作人 · 全平台同名，兼作词作曲。"
     }
     // 站内成员：加一条带 id 的，并在对应数据文件里 window.MEMBERS["新id"] = {...}
     // 外部成员：加一条带 url 的（指向对方网站），就会外链跳转
