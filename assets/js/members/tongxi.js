@@ -6,7 +6,7 @@ window.MEMBERS["tongxi"] = {
   profile: {
     name: "童夕",
     avatar: "assets/img/tongxi/avatar.jpg",
-    bio: "原创音乐人 · 网易云 / Q音同名。音色少女 / 少御（F3-D6），中 / 日 / 韩三语皆可，主抒情 / R&B / 流行。",
+    bio: "原创音乐人 音色少女 / 少御（F3-D6）和编录多种风格皆可",
     commissionStatus: "open",
     roles: ["演唱", "和声编录", "和声编写", "和声演唱"],
     platforms: [
