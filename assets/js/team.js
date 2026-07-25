@@ -102,7 +102,16 @@ window.TEAM = {
       roles: ["作词", "演唱", "rap编排"],
       avatar: "assets/img/luobo/avatar.jpg",
       desc: "全风格可写，舒适区抒情；兼歌手与 rap 编排。",
-      collab: ["醉雪", "折原露露", "花跃社"]
+      collab: ["醉雪", "折原露露", "花跃社", "安徽共青团", "植物大战僵尸2", "晃儿", "小曲儿", "灰白", "幻觉", "阮从青"]
+    },
+    {
+      id: "huaizhu",
+      name: "怀竹mio",
+      title: "作词",
+      roles: ["作词"],
+      avatar: "assets/img/huaizhu/avatar.jpg",
+      desc: "作词 · 主古风 / 流行，全题材可试；只接原创，排单到 9 月。",
+      collab: ["陈张太康", "玫月", "醉雪", "昼夜", "皓月"]
     }
     // 站内成员：加一条带 id 的，并在对应数据文件里 window.MEMBERS["新id"] = {...}
     // 外部成员：加一条带 url 的（指向对方网站），就会外链跳转
