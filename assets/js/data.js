@@ -58,7 +58,7 @@ window.SITE_DATA = {
       roles: ["作曲"],
       genres: ["古风 / 国风"],
       netease: "2723680037",
-      bilibili: "",
+      bilibili: "BV16G3kzeEQk",
       vocal: "兰音Reine",
       desc: ""
     },
