@@ -21,7 +21,7 @@ window.MEMBERS["xuanyun"] = {
     { title: "折红", roles: ["策划", "作词"], genres: ["古风"], netease: "2737048760", vocal: "尹昔眠", desc: "" },
     { title: "于山", roles: ["策划", "作词"], genres: ["古风"], netease: "2723680037", bilibili: "BV16G3kzeEQk", vocal: "兰音Reine", desc: "月紫夕作曲 · 凌雪编曲 · 工作室内部合作" },
     { title: "称题", roles: ["作词"], genres: ["古风"], netease: "1959424203", vocal: "慕寒", desc: "国风堂企划《惊鸿客·私塾先生篇》" },
-    { title: "与光", roles: ["作词"], genres: ["古风"], netease: "1955481894", vocal: "古韵今声 / 冬子 / Akie秋绘 等（好多人）", desc: "《崩坏3》群像原创同人曲" },
+    { title: "与光", roles: ["作词"], genres: ["流行"], netease: "1955481894", vocal: "菊花花 / 龟娘 / 祈Inory / Akie秋绘 / kinsen 等", desc: "《崩坏3》群像原创同人曲" },
     { title: "抱剑赴风波", roles: ["作词"], genres: ["古风"], netease: "1907478295", vocal: "裂天 & 小魂（张承煜）", desc: "" },
     { title: "春去也", roles: ["作词"], genres: ["古风"], netease: "2143641334", vocal: "老虎欧巴", desc: "《代号鸢》刘辩原创同人曲" },
     { title: "何人窃钩", roles: ["策划", "作词"], genres: ["古风"], netease: "2756336763", vocal: "绯村柯北", desc: "" }
@@ -32,7 +32,7 @@ window.MEMBERS["xuanyun"] = {
       groups: [{
         note: "风格全能（现风 / 古风 / 流行 / 音乐剧），任何新风格都想尝试；想参与广播剧 / 同人曲，偏好有思考、有新意的题材。",
         items: [
-          { name: "作词 / 策划", price: "详谈", desc: "" },
+          { name: "作词", price: "非商 400 · 商用详谈", desc: "" },
           { name: "全案策划 / 独项定制 / 歌手统筹 / 监制", price: "详谈", desc: "" },
           { name: "歌词修改", price: "详谈", desc: "可能带强烈个人色彩。" }
         ],
