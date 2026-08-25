@@ -112,6 +112,15 @@ window.TEAM = {
       avatar: "assets/img/huaizhu/avatar.jpg",
       desc: "作词 · 主古风 / 流行，全题材可试；只接原创，排单到 9 月。",
       collab: ["陈张太康", "玫月", "醉雪", "昼夜", "皓月"]
+    },
+    {
+      id: "xuanyun",
+      name: "悬云流火",
+      title: "作词 · 策划",
+      roles: ["作词", "策划"],
+      avatar: "assets/img/xuanyun/avatar.jpg",
+      desc: "作词 / 策划 · 风格全能，承接全案策划与歌手统筹；排单到 11 月。",
+      collab: ["Winky诗", "双笙", "尹昔眠", "兰音Reine", "慕寒", "以冬", "裂天", "老虎欧巴", "绯村柯北", "戾格"]
     }
     // 站内成员：加一条带 id 的，并在对应数据文件里 window.MEMBERS["新id"] = {...}
     // 外部成员：加一条带 url 的（指向对方网站），就会外链跳转
