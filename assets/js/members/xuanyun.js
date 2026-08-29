@@ -32,7 +32,7 @@ window.MEMBERS["xuanyun"] = {
       groups: [{
         note: "风格全能（现风 / 古风 / 流行 / 音乐剧），任何新风格都想尝试；想参与广播剧 / 同人曲，偏好有思考、有新意的题材。",
         items: [
-          { name: "作词", price: "非商 400 · 商用详谈", desc: "" },
+          { name: "作词", price: "详谈", desc: "" },
           { name: "全案策划 / 独项定制 / 歌手统筹 / 监制", price: "详谈", desc: "" },
           { name: "歌词修改", price: "详谈", desc: "可能带强烈个人色彩。" }
         ],
